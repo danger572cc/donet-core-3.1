@@ -12,8 +12,9 @@ namespace Bimodal.Test.Infraestructure
         {
             services.AddDbContext<AgencyContext>(options =>
             {
-                options.UseSqlite(configuration.GetConnectionString(""));
+                options.UseSqlite(configuration.GetConnectionString("DomainConnection"));
             });
+
         }
     }
 }

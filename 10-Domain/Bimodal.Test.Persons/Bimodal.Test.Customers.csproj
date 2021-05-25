@@ -8,4 +8,15 @@
     <ProjectReference Include="..\..\00-Infraestructure\Bimodal.Test.Infraestructure\Bimodal.Test.Infraestructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Kledex" Version="2.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Events\" />
+    <Folder Include="Commands\" />
+    <Folder Include="Handlers\" />
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+
 </Project>

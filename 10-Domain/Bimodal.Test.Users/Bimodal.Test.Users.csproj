@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Kledex" Version="2.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\00-Infraestructure\Bimodal.Test.Infraestructure\Bimodal.Test.Infraestructure.csproj" />
   </ItemGroup>
 
