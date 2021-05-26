@@ -1,4 +1,6 @@
 using Bimodal.Test.Infraestructure.Utils;
+using Kledex.Extensions;
+using Kledex.Store.EF.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +32,8 @@ namespace Bimodal.Test.Api
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseKledex().EnsureDomainDbCreated();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

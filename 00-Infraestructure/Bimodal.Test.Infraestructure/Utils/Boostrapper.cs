@@ -40,12 +40,6 @@ namespace Bimodal.Test.Infraestructure.Utils
 
         private static void LoadModules(IServiceCollection services, IConfiguration configuration)
         {
-            /*services.Scan(s => s
-                    .FromExecutingAssembly()
-                    .AddClasses()
-                    .UsingRegistrationStrategy(RegistrationStrategy.Skip)
-                    .AsImplementedInterfaces()
-                    .WithTransientLifetime());*/
             var types = GetTypes();
             var handlers = (from t in types
                             let attribute = t.GetCustomAttribute<OnStartUpAttribute>()

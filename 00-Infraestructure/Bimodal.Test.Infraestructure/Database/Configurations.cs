@@ -20,6 +20,8 @@ namespace Bimodal.Test.Infraestructure.Database
                     .IsRequired();
             builder.Property(p => p.PhoneNumber)
                     .IsRequired();
+            builder.Ignore(p => p.Events);
+            builder.Ignore(p => p.Version);
             builder.HasMany(m => m.CustomerBookings)
                    .WithOne(m => m.Customers)
                    .HasForeignKey(f => f.CustomerId);
@@ -43,6 +45,8 @@ namespace Bimodal.Test.Infraestructure.Database
                     .IsRequired();
             builder.Property(p => p.BasePrice)
                     .IsRequired();
+            builder.Ignore(p => p.Events);
+            builder.Ignore(p => p.Version);
         }
     }
 

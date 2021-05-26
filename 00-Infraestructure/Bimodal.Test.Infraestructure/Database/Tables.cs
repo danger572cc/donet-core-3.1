@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Kledex.Domain;
+using System;
 using System.Collections.Generic;
 
 namespace Bimodal.Test.Infraestructure.Database
 {
-    public class Customer
+    public class Customer : AggregateRoot
     {
-        public string Id { get; set; }
-    
+        public Customer() { }
+
         public int Dni { get; set; }
 
         public string FullName { get; set; }
@@ -18,10 +19,8 @@ namespace Bimodal.Test.Infraestructure.Database
         public virtual ICollection<CustomerBooking> CustomerBookings { get; set; }
     }
 
-    public class Booking 
+    public class Booking : AggregateRoot
     {
-        public string Id { get; set; }
-
         public string BookingNumber { get; set; }
 
         public int NumberOfPlaces { get; set; }
@@ -35,7 +34,7 @@ namespace Bimodal.Test.Infraestructure.Database
         public virtual ICollection<CustomerBooking> CustomerBookings { get; set; }
     }
 
-    public class CustomerBooking 
+    public class CustomerBooking
     {
         public string CustomerId { get; set; }
 
