@@ -28,7 +28,7 @@ namespace Bimodal.Test.Api
             services.AddControllers();
             services.AddProblemDetails();
             services.AddSwaggerGen(c => {
-                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Bimodal test API V1", Version = "v1" });
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Bimodal API V1", Version = "v1" });
             });
             services.Configure<ApiBehaviorOptions>(options =>
             {
@@ -65,7 +65,7 @@ namespace Bimodal.Test.Api
 
             app.UseSwagger();
             app.UseSwaggerUI(c => {
-                c.SwaggerEndpoint("v1/swagger.json", "Bimodal test API V1");
+                c.SwaggerEndpoint("v1/swagger.json", "Bimodal API V1");
             });
             app.UseProblemDetails();
             app.UseRouting();
