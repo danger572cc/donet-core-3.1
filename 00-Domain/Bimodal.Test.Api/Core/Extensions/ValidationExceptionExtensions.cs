@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Bimodal.Test.Api.Extensions
 {
-    public static class ValidationExceptionExtensions
+    public static class ApiResultExceptionExtensions
     {
         public static ProblemDetails ToProblemDetails(this Exception ex)
         {

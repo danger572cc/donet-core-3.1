@@ -5,7 +5,7 @@ namespace Bimodal.Test.Commands
 {
     public class UpdateCustomer : DomainCommand<Customer>
     {
-        public int DocumentNumber { get; set; }
+        public string DocumentNumber { get; set; }
 
         public string FullName { get; set; }
 

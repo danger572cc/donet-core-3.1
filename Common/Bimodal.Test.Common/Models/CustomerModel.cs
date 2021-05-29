@@ -1,21 +1,9 @@
-﻿using Bimodal.Test.Database;
-using Kledex.Queries;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Bimodal.Test.Models
+namespace Bimodal.Test.Common
 {
-    public class CustomersListModel : Query<IList<Customer>>
-    {
-    }
-
-    public class CustomerQueryModel : Query<Customer> 
-    {
-        public Guid Id { get; set; }
-    }
-
-    public sealed class CustomerFormModel
+    public class CustomerFormModel
     {
         [Required]
         [RegularExpression("([0-9]+)", ErrorMessage = "Only number characters")]
@@ -30,5 +18,11 @@ namespace Bimodal.Test.Models
         [Required]
         [RegularExpression("([0-9]+)", ErrorMessage = "Only number characters")]
         public string PhoneNumber { get; set; }
+    }
+
+    public class CustomerUpdateFormModel : CustomerFormModel 
+    {
+        [Required]
+        public Guid Id { get; set; }
     }
 }

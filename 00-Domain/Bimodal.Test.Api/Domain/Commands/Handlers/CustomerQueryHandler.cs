@@ -1,5 +1,4 @@
 ﻿using Bimodal.Test.Database;
-using Bimodal.Test.Models;
 using Kledex.Queries;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Bimodal.Test.Handlers
 {
-    public class CustomersQueryHandler : 
+    public class CustomerQueryHandler : 
         IQueryHandlerAsync<CustomersListModel, IList<Customer>>, 
         IQueryHandlerAsync<CustomerQueryModel, Customer>
     {
         private readonly AgencyContext _dbContext;
 
-        public CustomersQueryHandler(AgencyContext dbContext)
+        public CustomerQueryHandler(AgencyContext dbContext)
         {
             _dbContext = dbContext;
         }

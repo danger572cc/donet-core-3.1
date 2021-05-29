@@ -2,7 +2,7 @@
 
 namespace Bimodal.Test.Common
 {
-    public sealed class CustomerViewModel
+    public sealed class CustomerDTO
     {
         public Guid Id { get; set; }
 
