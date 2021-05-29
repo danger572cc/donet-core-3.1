@@ -35,8 +35,9 @@ namespace Bimodal.Test.Api.Controllers
         /// Register a new customer.
         /// </summary>
         /// <param name="model">Form with basic data of customer.</param>
-        [HttpPost("create")]
+        [HttpPost("")]
         [ProducesResponseType(typeof(Detail), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status422UnprocessableEntity)]
         public async Task<IActionResult> Create([FromBody] CustomerFormModel model)
         {
             var command = _mapper.Map<CreateCustomer>(model);
@@ -52,7 +53,7 @@ namespace Bimodal.Test.Api.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Delete(Guid id) 
+        public async Task<IActionResult> DeleteById(Guid id)
         {
             try
             {
@@ -86,7 +87,7 @@ namespace Bimodal.Test.Api.Controllers
         /// <summary>
         /// Find a customer by id.
         /// </summary>
-        /// <param name="id">Customer id.</param>
+        /// <param name = "id" > Customer id.</param>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Detail), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
@@ -98,14 +99,21 @@ namespace Bimodal.Test.Api.Controllers
                 var viewModel = new List<CustomerDTO>() { _mapper.Map<CustomerDTO>(result) };
                 return Ok(viewModel);
             }
-            catch (ApplicationException ex) 
+            catch (ApplicationException ex)
             {
                 var detail = ex.ToProblemDetails("Customer not found", StatusCodes.Status404NotFound);
                 return new NotFoundObjectResult(detail);
             }
         }
 
-        public async Task<IActionResult> Put([FromBody] CustomerUpdateFormModel model) 
+        /// <summary>
+        /// Update customer information.
+        /// </summary>
+        /// <param name="model">Form with basic data of customer.</param>
+        [HttpPut("")]
+        [ProducesResponseType(typeof(Detail), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Update([FromBody] CustomerUpdateFormModel model)
         {
             var command = _mapper.Map<UpdateCustomer>(model);
             await _dispatcher.SendAsync(command);
@@ -113,7 +121,7 @@ namespace Bimodal.Test.Api.Controllers
         }
 
         #region private methods
-        private async Task<Customer> FindById(Guid id) 
+        private async Task<Customer> FindById(Guid id)
         {
             var query = new CustomerQueryModel()
             {
