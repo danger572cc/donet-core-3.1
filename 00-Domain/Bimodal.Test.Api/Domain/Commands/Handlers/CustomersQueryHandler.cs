@@ -1,5 +1,5 @@
 ﻿using Bimodal.Test.Database;
-using Bimodal.Test.ViewModels;
+using Bimodal.Test.Models;
 using Kledex.Queries;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 
 namespace Bimodal.Test.Handlers
 {
-    public class CustomersQueryHandler : IQueryHandlerAsync<CustomersViewModel, IList<Customer>>
+    public class CustomersQueryHandler : 
+        IQueryHandlerAsync<CustomersListModel, IList<Customer>>, 
+        IQueryHandlerAsync<CustomerQueryModel, Customer>
     {
         private readonly AgencyContext _dbContext;
 
@@ -17,31 +19,21 @@ namespace Bimodal.Test.Handlers
             _dbContext = dbContext;
         }
 
-        public async Task<IList<Customer>> HandleAsync(CustomersViewModel query)
+        public async Task<IList<Customer>> HandleAsync(CustomersListModel query)
         {
             return await _dbContext.Customers.ToListAsync();
         }
-    }
 
-    public class CustomerQueryHandler : IQueryHandlerAsync<CustomerViewModel, Customer>
-    {
-        private readonly AgencyContext _dbContext;
-
-        public CustomerQueryHandler(AgencyContext dbContext)
+        public async Task<Customer> HandleAsync(CustomerQueryModel query)
         {
-            _dbContext = dbContext;
-        }
+            var customer = await _dbContext.Customers.FirstOrDefaultAsync(x => x.Id == query.Id);
 
-        public async Task<Customer> HandleAsync(CustomerViewModel query)
-        {
-            var product = await _dbContext.Customers.FirstOrDefaultAsync(x => x.Id == query.ProductId);
-
-            if (product == null)
+            if (customer == null)
             {
-                throw new ApplicationException($"Product not found. Id: {query.ProductId}");
+                throw new ApplicationException($"Customer not found. Id: {query.Id}");
             }
 
-            return product;
+            return customer;
         }
     }
 }

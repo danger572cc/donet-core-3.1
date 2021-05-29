@@ -333,3 +333,4 @@ ASALocalRun/
 00-Domain/Bimodal.Test.Api/domain-store.db-shm
 00-Domain/Bimodal.Test.Api/domain-store.db-wal
 00-Domain/Bimodal.Test.Api/event-store.db
+00-Domain/Bimodal.Test.Api/Bimodal.Test.Api.xml

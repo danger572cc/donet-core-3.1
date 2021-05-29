@@ -8,7 +8,7 @@ namespace Bimodal.Test.Database
     {
         public Customer() { }
 
-        public Customer(Guid id, int documentNumber, string fullName, string address, int phoneNumber) 
+        public Customer(Guid id, string documentNumber, string fullName, string address, string phoneNumber) 
         {
             Id = id;
             Dni = documentNumber;
@@ -17,17 +17,17 @@ namespace Bimodal.Test.Database
             PhoneNumber = phoneNumber;
         }
 
-        public int Dni { get; set; }
+        public string Dni { get; set; }
 
         public string FullName { get; set; }
 
         public string Address { get; set; }
 
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
         public virtual ICollection<CustomerBooking> CustomerBookings { get; set; }
 
-        public void Update(int documentNumber, string fullName, string address, int phoneNumber) 
+        public void Update(string documentNumber, string fullName, string address, string phoneNumber) 
         {
             Dni = documentNumber;
             FullName = fullName;

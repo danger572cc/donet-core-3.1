@@ -1,33 +1,39 @@
 ﻿using Bimodal.Test.Commands;
+using Bimodal.Test.Database;
 using FluentValidation;
+using System.Linq;
 
 namespace Bimodal.Test.Validators
 {
     public class CreateCustomerValidator : AbstractValidator<CreateCustomer>
     {
-        public CreateCustomerValidator() 
+        private readonly AgencyContext _dbContext;
+
+        public CreateCustomerValidator(AgencyContext agencyContext) 
         {
+            _dbContext = agencyContext;
+
             RuleFor(c => c.DocumentNumber)
-                .GreaterThan(0)
-                .WithMessage("Document number is required.");
-                //.Must(IsExistsCustomer)
-                //.WithMessage("Document number is already registered.");
+                .NotEmpty()
+                .WithMessage("dni-Document number is required.")
+                .Must(IsExistsCustomer)
+                .WithMessage("dni-Document number is already registered.");
 
             RuleFor(c => c.FullName)
                 .NotEmpty()
-                .WithMessage("Fullname is required.");
+                .WithMessage("fullName-Fullname is required.");
 
             RuleFor(c => c.Address)
                 .NotEmpty()
-                .WithMessage("Address is required.");
+                .WithMessage("address-Address is required.");
         }
 
         #region private methods
-        //private bool IsExistsCustomer(int documentNumber) 
-        //{
-        //    bool result = _dbContext.Customers.Any(f => f.Dni == documentNumber);
-        //    return result;
-        //} 
+        private bool IsExistsCustomer(string documentNumber)
+        {
+            bool result = _dbContext.Customers.Any(f => f.Dni == documentNumber);
+            return !result;
+        }
         #endregion
     }
 }
