@@ -27,9 +27,8 @@ namespace Bimodal.Test.Database
 
         public virtual ICollection<CustomerBooking> CustomerBookings { get; set; }
 
-        public void Update(string documentNumber, string fullName, string address, string phoneNumber) 
+        public void Update(string fullName, string address, string phoneNumber) 
         {
-            Dni = documentNumber;
             FullName = fullName;
             Address = address;
             PhoneNumber = phoneNumber;

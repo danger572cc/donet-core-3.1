@@ -1,4 +1,5 @@
 ﻿using Bimodal.Test.Database;
+using Kledex.Exceptions;
 using Kledex.Queries;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -29,7 +30,7 @@ namespace Bimodal.Test.Handlers
 
             if (customer == null)
             {
-                throw new ApplicationException($"Customer not found. Id: {query.Id}");
+                throw new ValidationException("id-Customer not found.");
             }
 
             return customer;

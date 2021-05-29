@@ -10,6 +10,11 @@ namespace Bimodal.Test.Api.Extensions
     {
         public static ProblemDetails ToProblemDetails(this Exception ex)
         {
+            if (ex.GetType() == typeof(ValidationException)) 
+            {
+                var e = (ValidationException)ex;
+                return e.ToValidationProblemDetails();
+            }
             var problemDetails = new ProblemDetails()
             {
                 Type = "https://httpstatuses.com/500",

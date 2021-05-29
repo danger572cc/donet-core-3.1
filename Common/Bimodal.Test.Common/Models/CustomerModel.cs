@@ -20,9 +20,19 @@ namespace Bimodal.Test.Common
         public string PhoneNumber { get; set; }
     }
 
-    public class CustomerUpdateFormModel : CustomerFormModel 
+    public class CustomerUpdateFormModel
     {
         [Required]
         public Guid Id { get; set; }
+
+        [Required]
+        public string FullName { get; set; }
+
+        [Required]
+        public string Address { get; set; }
+
+        [Required]
+        [RegularExpression("([0-9]+)", ErrorMessage = "Only number characters")]
+        public string PhoneNumber { get; set; }
     }
 }

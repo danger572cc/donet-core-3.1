@@ -5,6 +5,7 @@ using Bimodal.Test.Common;
 using Bimodal.Test.Database;
 using Bimodal.Test.Handlers;
 using Kledex;
+using Kledex.UI.Queries;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -128,6 +129,10 @@ namespace Bimodal.Test.Api.Controllers
                 Id = id
             };
             Customer result = await _dispatcher.GetResultAsync(query);
+            await _dispatcher.GetResultAsync(new GetAggregateModel
+            {
+                AggregateRootId = id
+            });
             return result;
         }
         #endregion

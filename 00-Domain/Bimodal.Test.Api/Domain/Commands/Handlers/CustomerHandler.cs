@@ -3,6 +3,7 @@ using Bimodal.Test.Database;
 using Bimodal.Test.Events;
 using Kledex.Commands;
 using Kledex.Domain;
+using Kledex.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -51,7 +52,7 @@ namespace Bimodal.Test.Handlers
 
             if (customer == null)
             {
-                throw new ApplicationException($"Customer not found. Id: {command.AggregateRootId}");
+                throw new ValidationException("id-Customer not found.");
             }
 
             return new CommandResponse
@@ -68,7 +69,30 @@ namespace Bimodal.Test.Handlers
 
         public async Task<CommandResponse> HandleAsync(UpdateCustomer command)
         {
-            throw new NotImplementedException();
+            var customer = await _dbContext.Customers.FirstOrDefaultAsync(x => x.Id == command.AggregateRootId);
+
+            if (customer == null)
+            {
+                throw new ValidationException("id-Customer not found.");
+            }
+
+            customer.Update(command.FullName, command.Address, command.PhoneNumber);
+
+            await _dbContext.SaveChangesAsync();
+
+            return new CommandResponse
+            {
+                Events = new List<IDomainEvent>()
+                {
+                    new CustomerUpdated
+                    {
+                        AggregateRootId = customer.Id,
+                        FullName = customer.FullName,
+                        Address = customer.Address,
+                        PhoneNumber = customer.PhoneNumber
+                    }
+                }
+            };
         }
     }
 }
