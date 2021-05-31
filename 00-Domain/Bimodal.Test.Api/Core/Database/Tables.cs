@@ -37,6 +37,18 @@ namespace Bimodal.Test.Database
 
     public class Booking : AggregateRoot
     {
+        public Booking() { }
+
+        public Booking(Guid id, string bookingNumber, int numberOfPlaces, string origin, string destination, decimal basePrice)
+        {
+            Id = id;
+            BookingNumber = bookingNumber;
+            NumberOfPlaces = numberOfPlaces;
+            Origin = origin;
+            Destination = destination;
+            BasePrice = basePrice;
+        }
+
         public string BookingNumber { get; set; }
 
         public int NumberOfPlaces { get; set; }
@@ -48,6 +60,14 @@ namespace Bimodal.Test.Database
         public decimal BasePrice { get; set; }
 
         public virtual ICollection<CustomerBooking> CustomerBookings { get; set; }
+
+        public void Update(int numberOfPlaces, string origin, string destination, decimal basePrice)
+        {
+            NumberOfPlaces = numberOfPlaces;
+            Origin = origin;
+            Destination = destination;
+            BasePrice = basePrice;
+        }
     }
 
     public class CustomerBooking

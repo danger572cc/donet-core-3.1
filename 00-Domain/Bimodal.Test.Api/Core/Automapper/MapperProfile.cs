@@ -37,6 +37,36 @@ namespace Bimodal.Test.Api.Core.Automapper
                 .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address))
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.FullName))
                 .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber));
+
+            CreateMap<Booking, BookingDTO>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.BookingNumber, opt => opt.MapFrom(src => src.BookingNumber))
+                .ForMember(dest => dest.NumberOfPlaces, opt => opt.MapFrom(src => src.NumberOfPlaces))
+                .ForMember(dest => dest.Origin, opt => opt.MapFrom(src => src.Origin))
+                .ForMember(dest => dest.Destination, opt => opt.MapFrom(src => src.Destination))
+                .ForMember(dest => dest.BasePrice, opt => opt.MapFrom(src => src.BasePrice));
+
+            CreateMap<CreateBooking, BookingDTO>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.NumberOfPlaces, opt => opt.MapFrom(src => src.NumberOfPlaces))
+                .ForMember(dest => dest.Origin, opt => opt.MapFrom(src => src.Origin))
+                .ForMember(dest => dest.Destination, opt => opt.MapFrom(src => src.Destination))
+                .ForMember(dest => dest.BasePrice, opt => opt.MapFrom(src => src.BasePrice));
+
+            CreateMap<BookingFormModel, CreateBooking>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
+                .ForMember(dest => dest.BookingNumber, opt => opt.MapFrom(src => src.BookingNumber))
+                .ForMember(dest => dest.NumberOfPlaces, opt => opt.MapFrom(src => src.NumberOfPlaces))
+                .ForMember(dest => dest.Origin, opt => opt.MapFrom(src => src.Origin))
+                .ForMember(dest => dest.Destination, opt => opt.MapFrom(src => src.Destination))
+                .ForMember(dest => dest.BasePrice, opt => opt.MapFrom(src => src.BasePrice));
+
+            CreateMap<BookingUpdateFormModel, UpdateBooking>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
+                .ForMember(dest => dest.NumberOfPlaces, opt => opt.MapFrom(src => src.NumberOfPlaces))
+                .ForMember(dest => dest.Origin, opt => opt.MapFrom(src => src.Origin))
+                .ForMember(dest => dest.Destination, opt => opt.MapFrom(src => src.Destination))
+                .ForMember(dest => dest.BasePrice, opt => opt.MapFrom(src => src.BasePrice));
         }
     }
 }

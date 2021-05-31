@@ -55,6 +55,9 @@ namespace Bimodal.Test.Handlers
                 throw new ValidationException("id-Customer not found.");
             }
 
+            _dbContext.Remove(customer);
+            await _dbContext.SaveChangesAsync();
+
             return new CommandResponse
             {
                 Events = new List<IDomainEvent>()
