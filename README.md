@@ -1,4 +1,4 @@
-# Proytecto de prueba .NET
+# Proyecto de prueba .NET
 
 Tecnología empleadas
 
