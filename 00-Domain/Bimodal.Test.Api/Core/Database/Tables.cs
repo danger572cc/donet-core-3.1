@@ -83,15 +83,24 @@ namespace Bimodal.Test.Database
         public virtual Booking Bookings { get; set; }
      }
 
-    public class User 
+    public class User : AggregateRoot
     {
-        public Guid Id { get; set; }
+        public User() { }
+
+        public User(Guid id, string userName, string email, string passwordSalt, string passwordHash) 
+        {
+            Id = id;
+            UserName = userName;
+            Email = email;
+            PasswordHash = passwordHash;
+            PasswordSalt = passwordSalt;
+        }
 
         public string UserName { get; set; }
 
         public string Email { get; set; }
 
-        public string Sign { get; set; }
+        public string PasswordSalt { get; set; }
 
         public string PasswordHash { get; set; }
 

@@ -23,7 +23,7 @@ namespace Bimodal.Test.Database
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CustomerEntityTypeConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(BookingEntityTypeConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CustomerBookingEntityTypeConfiguration).Assembly);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserEntityConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserEntityTypeConfiguration).Assembly);
         }
     }
 }

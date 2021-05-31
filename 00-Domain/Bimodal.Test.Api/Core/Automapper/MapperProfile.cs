@@ -67,6 +67,17 @@ namespace Bimodal.Test.Api.Core.Automapper
                 .ForMember(dest => dest.Origin, opt => opt.MapFrom(src => src.Origin))
                 .ForMember(dest => dest.Destination, opt => opt.MapFrom(src => src.Destination))
                 .ForMember(dest => dest.BasePrice, opt => opt.MapFrom(src => src.BasePrice));
+
+            CreateMap<UserFormModel, CreateUser>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
+                .ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.Password));
+
+            CreateMap<User, UserDTO>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email));
         }
     }
 }

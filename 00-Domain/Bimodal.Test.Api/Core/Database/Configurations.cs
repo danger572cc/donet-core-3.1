@@ -64,7 +64,7 @@ namespace Bimodal.Test.Database
         }
     }
 
-    public class UserEntityConfiguration : IEntityTypeConfiguration<User>
+    public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
