@@ -4,16 +4,21 @@ using Bimodal.Test.Commands;
 using Bimodal.Test.Common;
 using Bimodal.Test.Database;
 using Bimodal.Test.Handlers;
+using Bimodal.Test.Token;
 using Kledex;
 using Kledex.UI.Queries;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Bimodal.Test.Api.Controllers
 {
+    /// <summary>
+    /// Manages single credentials
+    /// </summary>
     [Produces("application/json")]
     [Route("api/accounts/")]
     [ApiController]
@@ -23,6 +28,19 @@ namespace Bimodal.Test.Api.Controllers
 
         private readonly IMapper _mapper;
 
+        private readonly IJwtAuthManager _jwtAuthManager;
+
+        public AccountController(IDispatcher dispatcher, IMapper mapper, JwtAuthManager jwtAuthManager)
+        {
+            _dispatcher = dispatcher;
+            _mapper = mapper;
+            _jwtAuthManager = jwtAuthManager;
+        }
+
+        /// <summary>
+        /// Register a new user.
+        /// </summary>
+        /// <param name="model">Single form to register a user.</param>
         [HttpPost("register")]
         [ProducesResponseType(typeof(Detail), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status422UnprocessableEntity)]
@@ -34,6 +52,10 @@ namespace Bimodal.Test.Api.Controllers
             return CreatedAtAction(nameof(GetById), new { command.Id }, new Detail(StatusCodes.Status201Created, entityResult));
         }
 
+        /// <summary>
+        /// Get user by Id.
+        /// </summary>
+        /// <param name="id">User Id.</param>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Detail), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
@@ -51,6 +73,42 @@ namespace Bimodal.Test.Api.Controllers
                 return new NotFoundObjectResult(detail);
             }
         }
+
+        /// <summary>
+        /// Login.
+        /// </summary>
+        /// <param name="request">Login form.</param>
+        /// <returns></returns>
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
+        {
+            var query = new UserLoginModel()
+            {
+                UserName = request.UserName,
+                Password = request.Password
+            };
+            User result = await _dispatcher.GetResultAsync(query);
+            if (result == null)
+            {
+                var detail = new Detail(StatusCodes.Status401Unauthorized, new { Message = "Invalid credentials" });
+                return Unauthorized(detail);
+            }
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Name, request.UserName),
+                new Claim(ClaimTypes.Role, UserRoles.BASIC_USER)
+            };
+
+            var jwtResult = _jwtAuthManager.GenerateTokens(request.UserName, claims, DateTime.Now);
+            var response = new LoginResultDTO
+            {
+                UserName = request.UserName,
+                Role = UserRoles.BASIC_USER,
+                AccessToken = jwtResult.AccessToken
+            };
+            return Ok(response);
+        }
+
 
         #region private methods
         private async Task<User> FindById(Guid id)

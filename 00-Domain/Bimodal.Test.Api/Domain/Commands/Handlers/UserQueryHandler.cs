@@ -1,4 +1,5 @@
-﻿using Bimodal.Test.Database;
+﻿using Bimodal.Test.Api.Extensions;
+using Bimodal.Test.Database;
 using Kledex.Exceptions;
 using Kledex.Queries;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +10,8 @@ namespace Bimodal.Test.Handlers
 {
     public class UserQueryHandler : 
         IQueryHandlerAsync<UserListModel, IList<User>>, 
-        IQueryHandlerAsync<UserQueryModel, User>
+        IQueryHandlerAsync<UserQueryModel, User>,
+        IQueryHandlerAsync<UserLoginModel, User>
     {
         private readonly AgencyContext _dbContext;
 
@@ -32,6 +34,23 @@ namespace Bimodal.Test.Handlers
                 throw new ValidationException("id-User not found.");
             }
 
+            return user;
+        }
+
+        public async Task<User> HandleAsync(UserLoginModel query)
+        {
+            var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.UserName == query.UserName);
+
+            if (user == null)
+            {
+                throw new ValidationException("userName-UserName not found.");
+            }
+
+            string passwordHash = Utils.HashPassword(query.Password, user.PasswordSalt);
+            if (passwordHash != user.PasswordHash) 
+            {
+                return null;
+            }
             return user;
         }
     }

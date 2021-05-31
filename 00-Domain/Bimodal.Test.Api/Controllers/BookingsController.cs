@@ -6,6 +6,7 @@ using Bimodal.Test.Database;
 using Bimodal.Test.Handlers;
 using Kledex;
 using Kledex.UI.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -20,6 +21,7 @@ namespace Bimodal.Test.Api.Controllers
     [Produces("application/json")]
     [Route("api/bookings/")]
     [ApiController]
+    [Authorize]
     public class BookingsController : BimodalBaseController
     {
         private readonly IDispatcher _dispatcher;

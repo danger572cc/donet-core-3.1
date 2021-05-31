@@ -1,4 +1,4 @@
-﻿using Bimodal.Test.Api.Core.Extensions;
+﻿using Bimodal.Test.Api.Extensions;
 using Bimodal.Test.Commands;
 using Bimodal.Test.Database;
 using FluentValidation;

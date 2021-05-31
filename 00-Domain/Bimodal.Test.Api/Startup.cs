@@ -2,6 +2,7 @@ using AutoMapper;
 using Bimodal.Test.Api.Core.Automapper;
 using Bimodal.Test.Api.Extensions;
 using Bimodal.Test.Database;
+using Bimodal.Test.Token;
 using Hellang.Middleware.ProblemDetails;
 using Kledex.Exceptions;
 using Kledex.Extensions;
@@ -9,6 +10,7 @@ using Kledex.Store.EF.Extensions;
 using Kledex.Store.EF.Sqlite.Extensions;
 using Kledex.UI.Extensions;
 using Kledex.Validation.FluentValidation.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -16,9 +18,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IO;
 using System.Reflection;
+using System.Text;
 
 namespace Bimodal.Test.Api
 {
@@ -84,6 +88,36 @@ namespace Bimodal.Test.Api
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder => { builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); });
+            });
+
+            var jwtTokenConfig = Configuration.GetSection("JwtTokenConfig").Get<JwtTokenSettings>();
+            services.AddSingleton(jwtTokenConfig);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = jwtTokenConfig.Issuer,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtTokenConfig.Secret)),
+                    ValidAudience = jwtTokenConfig.Audience,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.FromMinutes(1)
+                };
+            });
+
+            services.AddSingleton<IJwtAuthManager, JwtAuthManager>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
@@ -101,7 +135,8 @@ namespace Bimodal.Test.Api
                 c.SwaggerEndpoint("v1/swagger.json", "Bimodal API V1");
             });
             app.UseProblemDetails();
-            app.UseRouting();
+            app.UseCors("AllowAll");
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
