@@ -2,7 +2,6 @@
 using Bimodal.Test.Commands;
 using Bimodal.Test.Database;
 using FluentValidation;
-using System.Linq;
 
 namespace Bimodal.Test.Validators
 {

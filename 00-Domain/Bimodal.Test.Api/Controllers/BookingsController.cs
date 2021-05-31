@@ -35,7 +35,7 @@ namespace Bimodal.Test.Api.Controllers
         /// <summary>
         /// Register a new travel booking.
         /// </summary>
-        /// <param name="model">Form with basic data of customer.</param>
+        /// <param name="model">Form with basic data of travel booking.</param>
         [HttpPost("")]
         [ProducesResponseType(typeof(Detail), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status422UnprocessableEntity)]

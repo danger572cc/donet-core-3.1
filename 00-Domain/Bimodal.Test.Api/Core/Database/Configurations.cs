@@ -64,4 +64,21 @@ namespace Bimodal.Test.Database
         }
     }
 
+    public class UserEntityConfiguration : IEntityTypeConfiguration<User>
+    {
+        public void Configure(EntityTypeBuilder<User> builder)
+        {
+            builder.Property(p => p.Id)
+                    .IsRequired();
+            builder.HasKey(key => key.Id);
+            builder.Property(p => p.Email)
+                   .IsRequired();
+            builder.Property(p => p.UserName)
+                    .IsRequired();
+            builder.Property(p => p.PasswordHash)
+                    .IsRequired();
+            builder.Property(p => p.IsActive)
+                    .IsRequired();
+        }
+    }
 }

@@ -5,6 +5,11 @@ namespace Bimodal.Test.Commands
 {
     public class CreateBooking : DomainCommand<Booking>
     {
+        public CreateBooking() 
+        {
+            ValidateCommand = true;
+        }
+
         public string BookingNumber { get; set; }
 
         public int NumberOfPlaces { get; set; }

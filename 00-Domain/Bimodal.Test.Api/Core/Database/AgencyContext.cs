@@ -16,11 +16,14 @@ namespace Bimodal.Test.Database
 
         public DbSet<CustomerBooking> CustomerBookings { get; set; }
 
+        public DbSet<User> Users { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CustomerEntityTypeConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(BookingEntityTypeConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CustomerBookingEntityTypeConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserEntityConfiguration).Assembly);
         }
     }
 }

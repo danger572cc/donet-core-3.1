@@ -70,7 +70,7 @@ namespace Bimodal.Test.Database
         }
     }
 
-    public class CustomerBooking
+    public class CustomerBooking : AggregateRoot
     {
         public Guid CustomerId { get; set; }
 
@@ -82,4 +82,19 @@ namespace Bimodal.Test.Database
 
         public virtual Booking Bookings { get; set; }
      }
+
+    public class User 
+    {
+        public Guid Id { get; set; }
+
+        public string UserName { get; set; }
+
+        public string Email { get; set; }
+
+        public string Sign { get; set; }
+
+        public string PasswordHash { get; set; }
+
+        public bool IsActive { get; set; }
+    }
 }
