@@ -45,4 +45,13 @@ namespace Bimodal.Test.Common
         [Required]
         public decimal BasePrice { get; set; }
     }
+
+    public class ReserveFormModel 
+    {
+        [Required]
+        public Guid CustomerId { get; set; }
+
+        [Required]
+        public Guid BookingId { get; set; }
+    }
 }

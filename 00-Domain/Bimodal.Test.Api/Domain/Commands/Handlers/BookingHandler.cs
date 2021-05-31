@@ -12,7 +12,8 @@ namespace Bimodal.Test.Handlers
 {
     public class BookingHandler : ICommandHandlerAsync<CreateBooking>,
         ICommandHandlerAsync<DeleteBooking>,
-        ICommandHandlerAsync<UpdateBooking>
+        ICommandHandlerAsync<UpdateBooking>,
+        ICommandHandlerAsync<CreateTravelReserve>
     {
         private readonly AgencyContext _dbContext;
 
@@ -94,6 +95,29 @@ namespace Bimodal.Test.Handlers
                         Origin = command.Origin,
                         Destination = command.Destination,
                         BasePrice = command.BasePrice
+                    }
+                }
+            };
+        }
+
+        public async Task<CommandResponse> HandleAsync(CreateTravelReserve command)
+        {
+            var reserve = new CustomerBooking(command.Id, command.CustomerId, command.BookingId);
+
+            _dbContext.CustomerBookings.Add(reserve);
+
+            await _dbContext.SaveChangesAsync();
+
+            return new CommandResponse
+            {
+                Events = new List<IDomainEvent>()
+                {
+                    new TravelReserveCreated
+                    {
+                        AggregateRootId = reserve.Id,
+                        CustomerId = reserve.CustomerId,
+                        BookingId = reserve.BookingId,
+                        CreatedAt = reserve.CreatedAt
                     }
                 }
             };

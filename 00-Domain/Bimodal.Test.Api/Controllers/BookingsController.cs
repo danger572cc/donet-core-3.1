@@ -123,6 +123,20 @@ namespace Bimodal.Test.Api.Controllers
             return Ok(StatusCodes.Status204NoContent);
         }
 
+        /// <summary>
+        /// Create a new travel reserve
+        /// </summary>
+        /// <param name="model">Basic info to create travel reserve.</param>
+        [HttpPost("reserve")]
+        [ProducesResponseType(typeof(Detail), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Reserve([FromBody] ReserveFormModel model)
+        {
+            var command = _mapper.Map<CreateTravelReserve>(model);
+            await _dispatcher.SendAsync(command);
+            return Ok(StatusCodes.Status204NoContent);
+        }
+
         #region private methods
         private async Task<Booking> FindById(Guid id)
         {

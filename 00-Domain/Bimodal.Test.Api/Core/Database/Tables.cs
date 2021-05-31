@@ -72,6 +72,16 @@ namespace Bimodal.Test.Database
 
     public class CustomerBooking : AggregateRoot
     {
+        public CustomerBooking() { }
+
+        public CustomerBooking(Guid id, Guid customerId, Guid bookingId) 
+        {
+            Id = id;
+            CustomerId = customerId;
+            BookingId = bookingId;
+            CreatedAt = DateTime.Now;
+        }
+
         public Guid CustomerId { get; set; }
 
         public Guid BookingId { get; set; }

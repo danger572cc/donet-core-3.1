@@ -11,7 +11,6 @@ namespace Bimodal.Test.Api.Extensions
 
         public const int OUTPUT_SIZE = 32;
 
-
         public static bool IsExistsBookingNumber(AgencyContext dbContext, string bookingNumber) 
         {
             bool result = dbContext.Bookings.Any(f => f.BookingNumber == bookingNumber);
@@ -34,6 +33,18 @@ namespace Bimodal.Test.Api.Extensions
         {
             bool result = dbContext.Users.Any(f => f.UserName == user);
             return !result;
+        }
+
+        public static bool IsExistsCustomer(AgencyContext dbContext, Guid id)
+        {
+            bool result = dbContext.Users.Any(f => f.Id == id);
+            return !result;
+        }
+
+        public static bool IsExistsBookingInfo(AgencyContext dbContext, Guid id)
+        {
+            var result = dbContext.Bookings.FirstOrDefault(f => f.Id == id);
+            return result == null;
         }
 
         public static string GenerateSalt()
