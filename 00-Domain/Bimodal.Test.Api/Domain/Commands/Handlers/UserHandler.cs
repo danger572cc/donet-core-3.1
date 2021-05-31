@@ -13,8 +13,6 @@ namespace Bimodal.Test.Handlers
     {
         private readonly AgencyContext _dbContext;
 
-
-
         public UserHandler(AgencyContext dbContext)
         {
             _dbContext = dbContext;

@@ -79,6 +79,8 @@ namespace Bimodal.Test.Database
                     .IsRequired();
             builder.Property(p => p.IsActive)
                     .IsRequired();
+            builder.Ignore(p => p.Events);
+            builder.Ignore(p => p.Version);
         }
     }
 }

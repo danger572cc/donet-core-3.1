@@ -94,6 +94,7 @@ namespace Bimodal.Test.Database
             Email = email;
             PasswordHash = passwordHash;
             PasswordSalt = passwordSalt;
+            IsActive = true;
         }
 
         public string UserName { get; set; }

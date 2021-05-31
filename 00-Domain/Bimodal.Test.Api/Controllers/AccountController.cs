@@ -30,7 +30,7 @@ namespace Bimodal.Test.Api.Controllers
 
         private readonly IJwtAuthManager _jwtAuthManager;
 
-        public AccountController(IDispatcher dispatcher, IMapper mapper, JwtAuthManager jwtAuthManager)
+        public AccountController(IDispatcher dispatcher, IMapper mapper, IJwtAuthManager jwtAuthManager)
         {
             _dispatcher = dispatcher;
             _mapper = mapper;
