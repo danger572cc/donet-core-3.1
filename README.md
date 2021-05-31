@@ -7,3 +7,4 @@ Tecnologías empleadas
 3. Proyecto de Backend (WebApi) e interfaz de usuario (Páginas razor)
 4. Swagger para documentación de la api REST.
 5. Base de datos para dominio de aplicación y registro de eventos.
+6. [Modelo Entidad Relación](https://photos.app.goo.gl/j4Q3Z3YaipPbTBfx8)
