@@ -1,7 +1,8 @@
 ﻿@if (User.Identity.IsAuthenticated)
 {
     <li class="nav-item">
-        <button type="submit">Log out</button>
+        @Html.AntiForgeryToken()
+        <a class="nav-link text-dark" href="#" onclick="fnLogOut()">Logout</a>
     </li>
 }
 else
