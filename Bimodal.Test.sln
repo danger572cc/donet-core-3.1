@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bimodal.Test.Api", "00-Doma
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{3A7EBF47-B8F7-4344-B6FD-B1FF24EAD479}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bimodal.Test.Common", "Common\Bimodal.Test.Common\Bimodal.Test.Common.csproj", "{DC93AA74-6928-4250-B043-8624163F51D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bimodal.Test.Common", "Common\Bimodal.Test.Common\Bimodal.Test.Common.csproj", "{DC93AA74-6928-4250-B043-8624163F51D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
