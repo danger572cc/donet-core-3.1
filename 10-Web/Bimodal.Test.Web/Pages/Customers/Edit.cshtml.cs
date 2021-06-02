@@ -47,9 +47,29 @@ namespace Bimodal.Test.Web.Pages.Customers
             }
             else if (backendResult.StatusCode == StatusCodes.Status401Unauthorized)
             {
-                return RedirectToPage("./Account/Login");
+                return RedirectToPage("/Account/Login");
             }
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid) 
+            {
+                return Page();
+            }
+            var token = User.Claims.FirstOrDefault(f => f.Type == "BearerToken").Value;
+            var backendResult = await _apiRequestService.UpdateCustomer(Customer, token);
+            if (backendResult.StatusCode == StatusCodes.Status204NoContent)
+            {
+                return RedirectToPage("/Customers/Index");
+            }
+            else 
+            {
+                var customMessage = backendResult.Response.ToDictionary<string>();
+                ErrorMessage = customMessage["message"];
+                return Page();
+            }
         }
     }
 }

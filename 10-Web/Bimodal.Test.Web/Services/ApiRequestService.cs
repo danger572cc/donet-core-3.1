@@ -107,7 +107,7 @@ namespace Bimodal.Test.Web.Services
         {
             Detail responseBackend = null;
             var request = new RestRequest(ApiResource.CUSTOMERS).AddJsonBody(form);
-            var response = await _restClient.ExecuteAsync<Detail>(request);
+            var response = await _restClient.ExecuteAsync<Detail>(request, Method.PUT);
 
             switch (response.StatusCode)
             {
@@ -116,6 +116,9 @@ namespace Bimodal.Test.Web.Services
                     break;
                 case System.Net.HttpStatusCode.Unauthorized:
                     responseBackend = new Detail(StatusCodes.Status401Unauthorized);
+                    break;
+                case System.Net.HttpStatusCode.UnprocessableEntity:
+                    responseBackend = new Detail(StatusCodes.Status422UnprocessableEntity, responseBackend.Response);
                     break;
             }
             return responseBackend;
