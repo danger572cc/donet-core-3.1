@@ -195,13 +195,6 @@
             min-height: 400px;
         }
 
-        .jumbotron-landing {
-            background-image: url('https://images.pexels.com/photos/372098/pexels-photo-372098.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=700&w=1260');
-            min-height: 780px;
-            color: white;
-            background-size: cover;
-        }
-
         .jumbotron-packages {
             background-image: url('https://images.pexels.com/photos/1471686/pexels-photo-1471686.jpeg?cs=srgb&dl=bow-box-card-1471686.jpg&fm=jpg');
             background-size: cover;
@@ -224,7 +217,7 @@
         }
 
         .jumbotron-customer {
-            background-image: url('https://images.pexels.com/photos/1332191/pexels-photo-1332191.jpeg?cs=srgb&dl=banking-bill-breakfast-1332191.jpg&fm=jpg');
+            background-image: url('https://images.unsplash.com/photo-1556745753-b2904692b3cd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=666&q=80 666w');
             background-size: cover;
             color: white;
             min-height: 400px;
@@ -266,7 +259,13 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav justify-content-end flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link text-dark" asp-page="/Index">Home</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-dark dropdown-toggle" data-toggle="dropdown" role="button">Operations</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" asp-page="/Customers/Index">Customers</a></li>
+                            </ul>
                         </li>
                         @await Html.PartialAsync("_LoginPartial")
                     </ul>
@@ -274,12 +273,11 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container-fluid">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; @DateTime.Now.ToString("yyyy") - TravelExperts Company

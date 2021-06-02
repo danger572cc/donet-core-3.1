@@ -22,6 +22,7 @@ namespace Bimodal.Test.Web
             services.AddSession();
             services.AddRazorPages(options => {
                 options.Conventions.AuthorizePage("/Index");
+                options.Conventions.AuthorizeFolder("/Customers");
             });
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

@@ -6,5 +6,8 @@ namespace Bimodal.Test.Token
     {
         [JsonPropertyName("accessToken")]
         public string AccessToken { get; set; }
+
+        [JsonPropertyName("expires")]
+        public int ExpiresIn { get; set; }
     }
 }

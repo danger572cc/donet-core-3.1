@@ -12,5 +12,8 @@ namespace Bimodal.Test.Common
 
         [JsonPropertyName("accessToken")]
         public string AccessToken { get; set; }
+
+        [JsonPropertyName("expires")]
+        public int Expires { get; set; }
     }
 }

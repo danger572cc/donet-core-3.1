@@ -1,0 +1,42 @@
+﻿@page
+@model Bimodal.Test.Web.Pages.Customers.Customers
+@{
+    ViewData["Title"] = "Manage customers";
+}
+
+<link href="~/lib/datatables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<header class="container-header">
+    <section class="jumbotron jumbotron-fluid jumbotron-customer">
+        <div class="container">
+            <h1 class="display-4 contact-greetings h1-responsive">Customers</h1>
+            <hr class="my-4">
+        </div>
+    </section>
+</header>
+<main>
+    <section class="container">
+        <article class="contact-main">
+            <section class="agent-box">
+                <h3 class="agent-contacts">Overview</h3>
+                <article class="table-responsive-lg">
+                    <table id="customerDatatable" class="table table-striped table-bordered dt-responsive nowrap">
+                        <thead>
+                            <tr>
+                                <th>Document Number</th>
+                                <th>FullName</th>
+                                <th>PhoneNumber</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </article>
+            </section>
+        </article>
+    </section>
+</main>
+@section Scripts
+{
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables/js/dataTables.dataTables.min.js"></script>
+    <script src="~/lib/datatables/js/dataTables.bootstrap4.min.js"></script>
+}

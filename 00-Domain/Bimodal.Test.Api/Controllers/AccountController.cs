@@ -104,7 +104,8 @@ namespace Bimodal.Test.Api.Controllers
             {
                 UserName = request.UserName,
                 Role = UserRoles.BASIC_USER,
-                AccessToken = jwtResult.AccessToken
+                AccessToken = jwtResult.AccessToken,
+                Expires = jwtResult.ExpiresIn
             };
             return Ok(response);
         }

@@ -40,7 +40,8 @@ namespace Bimodal.Test.Token
 
             return new JwtAuthResult
             {
-                AccessToken = accessToken
+                AccessToken = accessToken,
+                ExpiresIn = _jwtTokenConfig.AccessTokenExpiration
             };
         }
 

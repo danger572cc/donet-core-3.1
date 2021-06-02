@@ -19,7 +19,7 @@ namespace Bimodal.Test.Web.Pages
 
         }
 
-        public void OnPostDelete()
+        public void OnPostLogOut()
         {
             if (User.Identity.IsAuthenticated)
             {

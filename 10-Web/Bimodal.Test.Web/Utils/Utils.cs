@@ -1,10 +1,20 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace Bimodal.Test.Web.Utils
 {
     public static class Utils
     {
+        public static string GetLocalUrl(this IUrlHelper urlHelper, string localUrl)
+        {
+            if (!urlHelper.IsLocalUrl(localUrl))
+            {
+                return urlHelper.Page("/Index");
+            }
+            return localUrl;
+        }
+
         public static Dictionary<string, TValue> ToDictionary<TValue>(this object obj)
         {
             var json = JsonConvert.SerializeObject(obj);

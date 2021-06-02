@@ -210,13 +210,6 @@ a {
     min-height: 400px;
 }
 
-.jumbotron-landing {
-    background-image: url('https://images.pexels.com/photos/372098/pexels-photo-372098.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=700&w=1260');
-    min-height: 780px;
-    color: white;
-    background-size: cover;
-}
-
 .jumbotron-packages {
     background-image: url('https://images.pexels.com/photos/1471686/pexels-photo-1471686.jpeg?cs=srgb&dl=bow-box-card-1471686.jpg&fm=jpg');
     background-size: cover;
@@ -239,7 +232,7 @@ a {
 }
 
 .jumbotron-customer {
-    background-image: url('https://images.pexels.com/photos/1332191/pexels-photo-1332191.jpeg?cs=srgb&dl=banking-bill-breakfast-1332191.jpg&fm=jpg');
+    background-image: url('https://images.unsplash.com/photo-1556745753-b2904692b3cd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=666&q=80 666w');
     background-size: cover;
     color: white;
     min-height: 400px;

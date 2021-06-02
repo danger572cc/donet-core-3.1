@@ -67,10 +67,15 @@ namespace Bimodal.Test.Web.Pages.Account
 
                     var claimsIdentity = new ClaimsIdentity(
                         claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
+                    
                     await HttpContext.SignInAsync(
                         CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(claimsIdentity));
+                        new ClaimsPrincipal(claimsIdentity), new AuthenticationProperties { 
+                            ExpiresUtc = DateTime.UtcNow.AddMinutes(tokenData.Expires),
+                            IsPersistent = false,
+                            AllowRefresh = false,
+                            IssuedUtc = DateTime.UtcNow
+                        });
                     return LocalRedirect(Url.GetLocalUrl(returnUrl));
                 }
                 else

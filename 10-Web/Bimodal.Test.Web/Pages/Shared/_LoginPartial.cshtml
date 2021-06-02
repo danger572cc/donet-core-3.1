@@ -1,8 +1,11 @@
 ﻿@if (User.Identity.IsAuthenticated)
 {
-    <li class="nav-item">
+    <li class="nav-item dropdown">
         @Html.AntiForgeryToken()
-        <a class="nav-link text-dark" href="#" onclick="fnLogOut()">Logout</a>
+        <a class="nav-link text-dark dropdown-toggle" data-toggle="dropdown" role="button">Hello @User.Identity.Name!</a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#" onclick="fnLogOut()">Logout</a></li>
+        </ul>
     </li>
 }
 else
