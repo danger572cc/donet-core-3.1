@@ -28,5 +28,11 @@ namespace Bimodal.Test.Web.Utils
             var objectCasted = JsonConvert.DeserializeObject<T>(json, new JsonSerializerSettings {  NullValueHandling = NullValueHandling.Ignore });
             return objectCasted;
         }
+
+        public static T ToObject<T>(this string obj)
+        {
+            var objectCasted = JsonConvert.DeserializeObject<T>(obj, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            return objectCasted;
+        }
     }
 }

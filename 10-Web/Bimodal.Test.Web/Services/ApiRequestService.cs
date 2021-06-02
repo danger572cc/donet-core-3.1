@@ -1,6 +1,7 @@
 ﻿using Bimodal.Test.Common;
 using Bimodal.Test.Web.Utils;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using RestSharp;
 using RestSharp.Authenticators;
@@ -13,6 +14,8 @@ namespace Bimodal.Test.Web.Services
 {
     public interface IApiRequestService
     {
+        Task<Detail> CreateCustomer(CustomerFormModel form, string token);
+
         Task<Detail> GetToken(LoginRequest request);
 
         Task<Detail> GetAllCustomers(string token);
@@ -35,6 +38,30 @@ namespace Bimodal.Test.Web.Services
             _configuration = configuration;
             _restClient = new RestClient(configuration["ApiUrl"]);
         }
+
+        public async Task<Detail> CreateCustomer(CustomerFormModel form, string token)
+        {
+            Detail responseBackend = null;
+            var request = new RestRequest(ApiResource.CUSTOMERS).AddJsonBody(form);
+            var response = await _restClient.ExecuteAsync(request, Method.POST);
+
+            switch (response.StatusCode)
+            {
+                case System.Net.HttpStatusCode.OK:
+                    var newCustomer = response.Content.ToObject<CustomerDTO>();
+                    responseBackend = new Detail(StatusCodes.Status201Created, newCustomer);
+                    break;
+                case System.Net.HttpStatusCode.Unauthorized:
+                    responseBackend = new Detail(StatusCodes.Status401Unauthorized);
+                    break;
+                case System.Net.HttpStatusCode.UnprocessableEntity:
+                    var problemDetail = response.Content.ToObject<ValidationProblemDetails>();
+                    responseBackend = new Detail(StatusCodes.Status422UnprocessableEntity, problemDetail);
+                    break;
+            }
+            return responseBackend;
+        }
+
 
         public async Task<Detail> DeleteCustomer(Guid id, string token)
         {

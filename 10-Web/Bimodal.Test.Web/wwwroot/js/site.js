@@ -61,18 +61,22 @@ function fnListCustomers()
 
 function fnDeleteCustomer(id)
 {
-    $.ajax({
-        type: "POST",
-        url: "/Customers/Index?handler=DeleteCustomer",
-        data: { id: id },
-        success: function () {
-            console.log(id + "deleted!");
-        },
-        complete: function () {
-            window.location.href = '/Customers/Index';
-        },
-        failure: function (response) {
-            console.error(response);
-        }
-    });
+    var confirmation = confirm("Are you sure delete this customer?");
+    if (confirmation)
+    {
+        $.ajax({
+            type: "POST",
+            url: "/Customers/Index?handler=DeleteCustomer",
+            data: { id: id },
+            success: function () {
+                console.log(id + "deleted!");
+            },
+            complete: function () {
+                window.location.href = '/Customers/Index';
+            },
+            failure: function (response) {
+                console.error(response);
+            }
+        });
+    }
 }

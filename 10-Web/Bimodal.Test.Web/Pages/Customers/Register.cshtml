@@ -1,0 +1,78 @@
+﻿@page
+@using Bimodal.Test.Web.Utils;
+@model Bimodal.Test.Web.Pages.Customers.Register
+@{
+    ViewData["Title"] = "Edit customer";
+}
+<section class="container-fluid">
+    <article class="jumbotron jumbotron-fluid jumbotron-profile">
+        <div class="container">
+            <h1 class="display-4 register-greetings h1-responsive">Update Customer</h1>
+            <hr class="my-4">
+        </div>
+    </article>
+</section>
+<main>
+    <section class="container">
+        <article class="register-main">
+            <section class="register-box">
+                <div class="col-md-8 offset-md-2 text-right">
+                    <a asp-page="/Customers/Index" class="btn btn-outline-warning">Back to list of customers</a>
+                </div>
+                <article class="col-md-8 offset-md-2">
+
+                    <form asp-action="/Customers/Edit" method="post">
+                        @if (Model.ErrorMessage != null && !string.IsNullOrEmpty(Model.ErrorMessage))
+                        {
+                            <div class="alert alert-danger alert-dismissible fade show mt-1" role="alert">
+                                @{
+                                    var problemDetails = Model.ErrorMessage.ToObject<ValidationProblemDetails>();
+                                    foreach (var error in problemDetails.Errors)
+                                    {
+                                        <p>The field @error.Key contains as errors: </p>
+                                        <ul>
+                                            @foreach (var message in error.Value)
+                                            {
+                                                <li>@message</li>
+                                            }
+                                        </ul>
+                                    }
+                                }
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        }
+                        <div class="form-group">
+                            <label asp-for="Customer.Dni" class="control-label"></label>
+                            <input asp-for="Customer.Dni" class="form-control" />
+                            <span asp-validation-for="Customer.Dni" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Customer.FullName" class="control-label"></label>
+                            <input asp-for="Customer.FullName" class="form-control" />
+                            <span asp-validation-for="Customer.FullName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Customer.Address" class="control-label"></label>
+                            <textarea asp-for="Customer.Address" class="form-control">                            
+                            </textarea>
+                            <span asp-validation-for="Customer.Address" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Customer.PhoneNumber" class="control-label"></label>
+                            <input asp-for="Customer.PhoneNumber" class="form-control" />
+                            <span asp-validation-for="Customer.PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Save" class="btn btn-outline-success btn-block" />
+                        </div>
+                    </form>
+                </article>
+                @section Scripts {
+                    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+                }
+            </section>
+        </article>
+    </section>
+</main>

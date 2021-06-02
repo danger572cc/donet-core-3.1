@@ -17,7 +17,12 @@
     <section class="container">
         <article class="contact-main">
             <section class="agent-box">
-                <h3 class="agent-contacts">Overview</h3>
+                <section class="row">
+                    <h2 class="agent-contacts col-sm-4">Overview</h2>
+                    <article class="col-sm-4 offset-md-4 text-right">
+                        <a asp-page="/Customers/Register" class="btn btn-outline-success btn-block" title="Add customer">Add</a>
+                    </article>
+                </section>
                 <article class="table-responsive-lg">
                     <table id="customerDatatable" class="table table-striped table-bordered dt-responsive nowrap">
                         <thead>
