@@ -8,4 +8,4 @@ Tecnologías empleadas
 4. Swagger para documentación de la api REST.
 5. Base de datos para dominio de aplicación y registro de eventos.
 6. [Modelo Entidad Relación](https://photos.app.goo.gl/j4Q3Z3YaipPbTBfx8)
-7. [Documento de requerimientos] (https://drive.google.com/file/d/1Uj7qHBLeslimZ6mv-nEjQpNsmMdnKh9I/view?usp=sharing)
+
